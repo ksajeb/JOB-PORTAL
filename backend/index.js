@@ -9,18 +9,20 @@ import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 
+dotenv.config();
 const PORT = process.env.PORT || 5000;
-dotenv.config({});
 
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-// const corsOption={     //if required the run
-//   origin:'http//localhost:5173',
-//   credentials:true,
-// }
-app.use(cors()); // app.use(cors(corsOption))
+const corsOption = {
+  //if required the run
+  origin: "http://localhost:5173",
+  credentials: true,
+};
+// app.use(cors());
+app.use(cors(corsOption));
 
 //routes
 app.use("/api/v1/user", userRoute);
