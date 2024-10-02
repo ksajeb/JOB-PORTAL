@@ -40,8 +40,6 @@ export const register = async (req, res) => {
   }
 };
 
-
-
 export const login = async (req, res) => {
   try {
     const { email, password, role } = req.body;
@@ -104,9 +102,6 @@ export const login = async (req, res) => {
   }
 };
 
-
-
-
 export const logout = async (req, res) => {
   try {
     return res.status(200).cookie("token", "", { maxAge: 0 }).json({
@@ -118,25 +113,20 @@ export const logout = async (req, res) => {
   }
 };
 
-
-
-
 export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
     const file = req.file;
-    // if (!fullname || !email || !skills || !bio || !phoneNumber) {
-    //   return res.status(400).json({
-    //     message: "Something is missing!!",
-    //     success: false,
-    //   });
-    // };
 
     //cloudinary
 
     let skillsArray;
     if (skills) {
-      skillsArray = skills.split(",");
+      skillsArray = skills
+        .replace(/\s+/g, ",")
+        .split(",")
+        .map((skill) => skill.trim())
+        .filter((skill) => skill);
     }
     const userId = req.id;
     let user = await User.findById(userId);
