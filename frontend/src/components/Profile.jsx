@@ -5,11 +5,14 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Label } from "./ui/label";
 import AppliedJobTable from "./AppliedJobTable";
+import { useState } from "react";
+import AppliedJobDialog from "./AppliedJobDialog";
 
 const skills = ["Html", "CSS", "JavaScript", "React"];
-
 const isResume = true;
+
 const Profile = () => {
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <Navbar></Navbar>
@@ -30,7 +33,7 @@ const Profile = () => {
               </p>
             </div>
           </div>
-          <Button className="text-right" variant="outline">
+          <Button onClick={()=>setOpen(true)} className="text-right" variant="outline">
             <Pen />
           </Button>
         </div>
@@ -73,6 +76,7 @@ const Profile = () => {
         <h1 className="font-bold text-lg my-5">Applied Job</h1>
         <AppliedJobTable />
       </div>
+      <AppliedJobDialog open={open} setOpen={setOpen} />
     </div>
   );
 };
