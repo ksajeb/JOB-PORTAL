@@ -48,6 +48,7 @@ function UpdateProfileDialog({ open, setOpen }) {
     }
 
     try {
+      setLoading(true);
       const res = await axios.post(
         `${USER_API_END_POINT}/profile/update`,
         formData,
@@ -65,6 +66,8 @@ function UpdateProfileDialog({ open, setOpen }) {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
     setOpen(false);
     console.log(input);
@@ -72,7 +75,7 @@ function UpdateProfileDialog({ open, setOpen }) {
 
   const fileChangeHandler = (e) => {
     const file = e.target.files?.[0];
-    setInput(...input, file);
+    setInput({ ...input, file });
   };
 
   return (
