@@ -6,7 +6,7 @@ import { Label } from "../ui/label";
 import { RadioGroup } from "../ui/radio-group";
 import { useState } from "react";
 import { toast } from "sonner";
-import { USER_API_END_POINT } from "@/utils/costant.js";
+import { USER_API_END_POINT } from "@/utils/constant.js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setUser } from "@/redux/authSlice";
@@ -39,7 +39,7 @@ const Login = () => {
         withCredentials: true,
       });
       if (res.data.success) {
-        dispatch(setUser(res.data.user))
+        dispatch(setUser(res.data.user));
         navigate("/");
         toast.success(res.data.message);
       }
@@ -108,17 +108,17 @@ const Login = () => {
               </div>
             </RadioGroup>
           </div>
-          {loading ? 
+          {loading ? (
             <Button className="w-full my-4">
               <Loader2 className="mr-2 h-4 w-4 animate-spin">
                 Please wait
               </Loader2>
             </Button>
-           : 
+          ) : (
             <Button type="submit" className="w-full my-4">
               Login
             </Button>
-          }
+          )}
 
           <span className="text-sm">
             Don&apos;t have an account?{" "}

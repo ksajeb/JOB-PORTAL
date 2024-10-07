@@ -6,7 +6,7 @@ import { Label } from "../ui/label";
 import { RadioGroup } from "../ui/radio-group";
 import { useState } from "react";
 import axios from "axios";
-import { USER_API_END_POINT } from "@/utils/costant.js";
+import { USER_API_END_POINT } from "@/utils/constant.js";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader2 } from "lucide-react";
