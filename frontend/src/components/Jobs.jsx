@@ -3,7 +3,7 @@ import FilterCard from "./FilterCard";
 import Job from "./Job";
 import Navbar from "./shared/Navbar";
 
-const jobsArray = [1, 2, 3, 4, 5, 6, 7, 8];
+// const jobsArray = [1, 2, 3, 4, 5, 6, 7, 8];
 
 const Jobs = () => {
   const {allJobs}=useSelector(store=>store.job);

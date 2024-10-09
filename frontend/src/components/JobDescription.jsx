@@ -1,19 +1,57 @@
+import { useParams } from "react-router-dom";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import axios from "axios";
+import { useEffect } from "react";
+import { JOB_API_END_POINT } from "@/utils/constant";
+import { setSingleJob } from "@/redux/jobSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const JobDescription = () => {
-  const isApplied = false;
-
+  const { singleJob } = useSelector((store) => store.job);
+  const { user } = useSelector((store) => store.auth);
   
+  const isApplied =
+    singleJob?.applications?.some(
+      (application) => application.applicant === user?._id
+    ) || false;
+
+  const params = useParams();
+  const jobId = params.id;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchSingleJob = async () => {
+      try {
+        const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, {
+          withCredentials: true,
+        });
+        // console.log(res);
+        if (res.data.success) {
+          dispatch(setSingleJob(res.data.job));
+        }
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    };
+    fetchSingleJob();
+  }, [jobId, dispatch, user?._id]);
+
   return (
     <div className="max-w-7xl mx-auto my-10">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-bold text-xl">Frontend Developer</h1>
+          <h1 className="font-bold text-xl">{singleJob?.title}</h1>
           <div className="flex items-center gap-2 mt-4">
-            <Badge className="text-blue-700 font-bold">12 Position</Badge>
-            <Badge className="text-[#f83002] font-bold">Part Time</Badge>
-            <Badge className="text-[#7209b7] font-bold">20 LPA</Badge>
+            <Badge className="text-blue-700 font-bold">
+              {singleJob?.position}
+            </Badge>
+            <Badge className="text-[#f83002] font-bold">
+              {singleJob?.jobType}
+            </Badge>
+            <Badge className="text-[#7209b7] font-bold">
+              {singleJob?.salary}
+            </Badge>
           </div>
         </div>
         <Button
@@ -34,34 +72,44 @@ const JobDescription = () => {
         <h1 className="font-bold my-1">
           Role:
           <span className="font-normal pl-4 text-gray-800">
-            Frontend Developer
+            {singleJob?.title}
           </span>
         </h1>
         <h1 className="font-bold my-1">
           Location:
-          <span className="font-normal pl-4 text-gray-800">Mumbai</span>
+          <span className="font-normal pl-4 text-gray-800">
+            {singleJob?.location}
+          </span>
         </h1>
         <h1 className="font-bold my-1">
           Description:
           <span className="font-normal pl-4 text-gray-800">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Numquam,
-            quia.
+            {singleJob?.description}
           </span>
         </h1>
         <h1 className="font-bold my-1">
           Experience:
-          <span className="font-normal pl-4 text-gray-800">2 years</span>
+          <span className="font-normal pl-4 text-gray-800">
+            {singleJob?.experience} yrs
+          </span>
         </h1>
         <h1 className="font-bold my-1">
-          Salary:<span className="font-normal pl-4 text-gray-800">12LPA</span>
+          Salary:
+          <span className="font-normal pl-4 text-gray-800">
+            {singleJob?.salary}
+          </span>
         </h1>
         <h1 className="font-bold my-1">
           Total Applicants:
-          <span className="font-normal pl-4 text-gray-800">4</span>
+          <span className="font-normal pl-4 text-gray-800">
+            {singleJob?.applications?.length}
+          </span>
         </h1>
         <h1 className="font-bold my-1">
           Posted Date:
-          <span className="font-normal pl-4 text-gray-800">02-10-2024</span>
+          <span className="font-normal pl-4 text-gray-800">
+            {singleJob?.createdAt.split("T")[0]}
+          </span>
         </h1>
       </div>
     </div>

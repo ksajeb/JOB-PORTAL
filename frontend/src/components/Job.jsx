@@ -4,14 +4,25 @@ import { Avatar, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { useNavigate } from "react-router-dom";
 
-function Job({job}) {
+function Job({ job }) {
   const navigate = useNavigate();
 
-  const jobId = "jdfbjdfhdjhfdh";
+  // const jobId = "jdfbjdfhdjhfdh";
+
+  const daysAgoFunction = (mongodbTime) => {
+    const createdAt = new Date(mongodbTime);
+    const currentTime = new Date();
+    const timeDifference = currentTime - createdAt;
+    return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
+  };
   return (
     <div className="p-5 rounded-md shadow-2xlxl bg-white border border-gray-700">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">2 Days ago</p>
+        <p className="text-sm text-gray-500">
+          {daysAgoFunction(job?.createdAt) === 0
+            ? "Today"
+            : `${daysAgoFunction(job?.createdAt)} days ago`}
+        </p>
         <Button variant="outline" className="rounded-full" size="icon">
           <Bookmark></Bookmark>
         </Button>
@@ -29,11 +40,12 @@ function Job({job}) {
       </div>
       <div>
         <h1 className="font-bold text-lg my-2">{job?.title}</h1>
-        <p className="text-sm text-gray-600 ">{job?.description}
-        </p>
+        <p className="text-sm text-gray-600 ">{job?.description}</p>
       </div>
       <div className="flex items-center gap-2 mt-4">
-        <Badge className="text-blue-700 font-bold">{job?.position} Position</Badge>
+        <Badge className="text-blue-700 font-bold">
+          {job?.position} Position
+        </Badge>
         <Badge className="text-[#f83002] font-bold">{job?.jobType}</Badge>
         <Badge className="text-[#7209b7] font-bold">{job.salary} LPA</Badge>
       </div>
