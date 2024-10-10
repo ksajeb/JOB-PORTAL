@@ -19,7 +19,7 @@ const filterData = [
     filterType: "Salary",
     array: [
       "0-40k",
-      "42-1lac",
+      "42k-1lac",
       "1 lac-2 lac",
       "2 lac to 5 lac",
       "5 lac - 10 lac",
