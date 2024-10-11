@@ -157,7 +157,7 @@ function UpdateProfileDialog({ open, setOpen }) {
                 />
               </div>
 
-              <div className="grid grid-cols-4 items-center gap-4">
+              <div className="grid grid-cols-4 items-center gap-4  cursor-pointer">
                 <Label htmlFor="file" className="text-right">
                   Resume
                 </Label>
