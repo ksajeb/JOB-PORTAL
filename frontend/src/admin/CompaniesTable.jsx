@@ -14,8 +14,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Edit2, MoreHorizontalIcon } from "lucide-react";
+import { useSelector } from "react-redux";
 
 const CompaniesTable = () => {
+  const { companies } = useSelector((store) => store.company);
   return (
     <div>
       <Table>
@@ -29,26 +31,30 @@ const CompaniesTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableCell>
-            <Avatar>
-              <AvatarImage src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"></AvatarImage>
-            </Avatar>
-          </TableCell>
-          <TableCell>Company Name</TableCell>
-          <TableCell>02-10-2024</TableCell>
-          <TableCell className="text-right cursor-pointer">
-            <Popover>
-              <PopoverTrigger>
-                <MoreHorizontalIcon></MoreHorizontalIcon>
-              </PopoverTrigger>
-              <PopoverContent className="w-32">
-                <div className="flex items-center gap-2 cursor-pointer w-fit">
-                  <Edit2 className="w-4 " />
-                  <span>Edit</span>
-                </div>
-              </PopoverContent>
-            </Popover>
-          </TableCell>
+          {companies?.map((company) => (
+            <tr key={company}>
+              <TableCell>
+                <Avatar>
+                  <AvatarImage src={company.logo}></AvatarImage>
+                </Avatar>
+              </TableCell>
+              <TableCell>{company.name}</TableCell>
+              <TableCell>{company.createdAt.split("T")[0]}</TableCell>
+              <TableCell className="text-right cursor-pointer">
+                <Popover>
+                  <PopoverTrigger>
+                    <MoreHorizontalIcon></MoreHorizontalIcon>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-32">
+                    <div className="flex items-center gap-2 cursor-pointer w-fit">
+                      <Edit2 className="w-4 " />
+                      <span>Edit</span>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </TableCell>
+            </tr>
+          ))}
         </TableBody>
       </Table>
     </div>
