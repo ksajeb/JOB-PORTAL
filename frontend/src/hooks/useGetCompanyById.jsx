@@ -15,7 +15,6 @@ const useGetCompanyById = (companyId) => {
             withCredentials: true,
           }
         );
-        // console.log(res)
         if (res.data.success) {
           dispatch(setSingleCompany(res.data.company));
         }

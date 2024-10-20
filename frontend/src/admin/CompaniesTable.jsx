@@ -16,12 +16,14 @@ import {
 import { Edit2, MoreHorizontalIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CompaniesTable = () => {
   const { companies, searchCompanyByText } = useSelector(
     (store) => store.company
   );
   const [filterCompany, setFilterCompany] = useState(companies);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const filteredCompany =
@@ -34,7 +36,7 @@ const CompaniesTable = () => {
           ?.toLowerCase()
           .includes(searchCompanyByText.toLowerCase());
       });
-      setFilterCompany(filteredCompany)
+    setFilterCompany(filteredCompany);
   }, [companies, searchCompanyByText]);
 
   return (
@@ -65,7 +67,12 @@ const CompaniesTable = () => {
                     <MoreHorizontalIcon></MoreHorizontalIcon>
                   </PopoverTrigger>
                   <PopoverContent className="w-32">
-                    <div className="flex items-center gap-2 cursor-pointer w-fit">
+                    <div
+                      onClick={() =>
+                        navigate(`/admin/companies/${company._id}`)
+                      }
+                      className="flex items-center gap-2 cursor-pointer w-fit"
+                    >
                       <Edit2 className="w-4 " />
                       <span>Edit</span>
                     </div>
