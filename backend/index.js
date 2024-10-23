@@ -1,4 +1,4 @@
-import express from "express"; //1.51.51 hrs
+import express from "express";
 const app = express();
 import cookieParser from "cookie-parser";
 import cors from "cors";
