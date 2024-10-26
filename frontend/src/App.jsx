@@ -11,6 +11,7 @@ import Companies from "./admin/Companies";
 import CompanyCreate from "./admin/CompanyCreate";
 import CompanySetup from "./admin/CompanySetup";
 import PostJob from "./admin/PostJob";
+import Applicants from "./admin/Applicants";
 
 //4.14 hrs
 
@@ -62,6 +63,10 @@ const appRouter = createBrowserRouter([
   {
     path: "/admin/jobs/create",
     element: <PostJob />,
+  },
+  {
+    path: "/admin/jobs/:id/applicants",
+    element: <Applicants />,
   },
 ]);
 
