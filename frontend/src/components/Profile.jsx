@@ -8,13 +8,15 @@ import AppliedJobTable from "./AppliedJobTable";
 import { useState } from "react";
 import UpdateProfileDialog from "./UpdateProfileDialog";
 import { useSelector } from "react-redux";
+import useGetAppliedJobs from "@/hooks/useGetAppliedJobs";
 
 const isResume = true;
 
 const Profile = () => {
+  useGetAppliedJobs();
   const [open, setOpen] = useState(false);
-  const { user } = useSelector(store => store.auth);
-  
+  const { user } = useSelector((store) => store.auth);
+
   return (
     <div>
       <Navbar></Navbar>
@@ -23,14 +25,16 @@ const Profile = () => {
           <div className="flex items-center gap-4">
             <Avatar className="h-24 w-24">
               <AvatarImage
-                src={user?.profile?.profilePhoto || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrUfiySJr8Org5W-oE2v3_i7VqufglYtSdqw&s"}
+                src={
+                  user?.profile?.profilePhoto ||
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrUfiySJr8Org5W-oE2v3_i7VqufglYtSdqw&s"
+                }
                 alt="profile"
               ></AvatarImage>
             </Avatar>
             <div>
               <h1 className="font-md text-xl ">{user?.fullname}</h1>
-              <p>{user?.profile.bio}
-              </p>
+              <p>{user?.profile?.bio}</p>
             </div>
           </div>
           <Button
@@ -55,7 +59,9 @@ const Profile = () => {
           <h1>Skills</h1>
           <div className="flex items-center gap-1">
             {user?.profile?.skills.length !== 0 ? (
-              user?.profile?.skills.map((item, index) => <Badge key={index}>{item}</Badge>)
+              user?.profile?.skills.map((item, index) => (
+                <Badge key={index}>{item}</Badge>
+              ))
             ) : (
               <span>NA</span>
             )}
@@ -66,7 +72,7 @@ const Profile = () => {
           {isResume ? (
             <a
               target="blank"
-              href={user?.profile?.resume} 
+              href={user?.profile?.resume}
               className="text-blue-500 hover:underline w-full"
             >
               {user?.profile?.resumeOriginalName}
