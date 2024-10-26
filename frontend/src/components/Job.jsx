@@ -47,7 +47,7 @@ function Job({ job }) {
           {job?.position} Position
         </Badge>
         <Badge className="text-[#f83002] font-bold">{job?.jobType}</Badge>
-        <Badge className="text-[#7209b7] font-bold">{job.salary} LPA</Badge>
+        <Badge className="text-[#7209b7] font-bold">{job?.salary} LPA</Badge>
       </div>
       <div className="flex items-center gap-4 mt-4">
         <Button
