@@ -3,8 +3,7 @@ import FilterCard from "./FilterCard";
 import Job from "./Job";
 import Navbar from "./shared/Navbar";
 import { useEffect, useState } from "react";
-
-// const jobsArray = [1, 2, 3, 4, 5, 6, 7, 8];
+import { motion } from "framer-motion";
 
 const Jobs = () => {
   const { allJobs, searchQuery } = useSelector((store) => store.job);
@@ -39,9 +38,15 @@ const Jobs = () => {
             <div className="flex-1 h-[88vh] overflow-y-auto pb-5">
               <div className="grid grid-cols-3 gap-4">
                 {filterJobs.map((job) => (
-                  <div key={job?._id}>
+                  <motion.dev
+                    initial={{ opacity: 0, y: 100 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -100 }}
+                    transition={{ duration: 0.3 }}
+                    key={job?._id}
+                  >
                     <Job job={job} />
-                  </div>
+                  </motion.dev>
                 ))}
               </div>
             </div>

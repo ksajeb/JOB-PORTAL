@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { RadioGroup } from "../ui/radio-group";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constant.js";
 import { toast } from "sonner";
@@ -13,7 +13,7 @@ import { Loader2 } from "lucide-react";
 import { setLoading } from "@/redux/authSlice";
 
 const Signup = () => {
-  const { loading } = useSelector((store) => store.auth);
+  const { loading, user } = useSelector((store) => store.auth);
 
   const [input, setInput] = useState({
     fullname: "",
@@ -65,6 +65,12 @@ const Signup = () => {
       dispatch(setLoading(false));
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  });
   return (
     <div>
       <Navbar />
