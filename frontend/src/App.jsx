@@ -14,7 +14,6 @@ import PostJob from "./admin/PostJob";
 import Applicants from "./admin/Applicants";
 import ProtectedRoute from "./admin/ProtectedRoute";
 
-//4.14 hrs
 
 const appRouter = createBrowserRouter([
   {
